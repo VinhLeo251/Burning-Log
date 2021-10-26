@@ -1,0 +1,16 @@
+<div class="main-banner">
+<?php
+echo $block->getLayout()
+->createBlock('Magento\Cms\Block\Block')
+->setBlockId('main-banner')
+->toHtml();
+?>
+</div>
+<div class="main-banner-mobile">
+<?php
+echo $block->getLayout()
+->createBlock('Magento\Cms\Block\Block')
+->setBlockId('main-banner-mobile')
+->toHtml();
+?>
+</div>

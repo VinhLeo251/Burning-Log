@@ -1,0 +1,26 @@
+<div class="footer-banner-container">
+<div class="footer-banner">
+<?php
+echo $block->getLayout()
+->createBlock('Magento\Cms\Block\Block')
+->setBlockId('footer-banner')
+->toHtml();
+?>
+</div>
+<div class="footer-banner-mobile">
+<?php
+echo $block->getLayout()
+->createBlock('Magento\Cms\Block\Block')
+->setBlockId('footer-banner-mobile')
+->toHtml();
+?>
+</div>
+<div class="footer-banner-link">
+<?php
+echo $block->getLayout()
+->createBlock('Magento\Cms\Block\Block')
+->setBlockId('footer-banner-link')
+->toHtml();
+?>
+</div>
+</div>

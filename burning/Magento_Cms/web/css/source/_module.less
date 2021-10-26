@@ -1,0 +1,718 @@
+& when (@media-common =true) {
+    //
+    //Main Banner
+    //
+
+    .main-banner,
+    .main-banner-mobile {
+        margin-top: -5px;
+        text-align: center;
+
+        .slick-arrow {
+            display: none;
+            z-index: 2;
+            width: 42px;
+            height: 42px;
+            background-color: @color-white;
+            border-radius: 50%;
+            position: absolute;
+
+            &::before {
+                color: @color-black;
+                font-family: 'fontawesome-webfont';
+            }
+        }
+
+        .slick-prev {
+            left: 10px;
+
+            &::before {
+                content: "\f104";
+            }
+        }
+
+        .slick-next {
+            right: 10px;
+
+            &::before {
+                content: "\f105";
+            }
+        }
+
+        img {
+            width: 100%;
+        }
+
+        .slick-slide {
+            position: relative;
+        }
+
+        .slide-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            width: fit-content;
+
+            // line-height: 100px;
+            .sld-content {
+                padding: 0 25%;
+                margin-bottom: 26px;
+                font-size: 32px;
+                line-height: 34px;
+                color: @color-white;
+                font-weight: 400;
+                font-family: @font-lora-regular;
+                text-align: center;
+                filter: drop-shadow(0 0 7.5px rgba(29, 21, 21, 0.5));
+            }
+
+            .sld-title {
+                padding-bottom: 6%;
+                line-height: 42px;
+                color: @color-white;
+                font-weight: bold;
+                font-family: @font-market;
+                text-align: center;
+            }
+            <?php
+            /**
+             * Copyright © Magento, Inc. All rights reserved.
+             * See COPYING.txt for license details.
+             */
+            namespace AHT\Portfolio\Model\Portfolio;
+            
+            use AHT\Portfolio\Model\ResourceModel\Portfolio\CollectionFactory;
+            use Magento\Framework\App\Request\DataPersistorInterface;
+            use Magento\Ui\DataProvider\Modifier\PoolInterface;
+            use Magento\Framework\App\ObjectManager;
+            use AHT\Portfolio\Model\Portfolio\FileInfo;
+            use Magento\Store\Model\StoreManagerInterface;
+            
+            /**
+             * Class DataProvider
+             */
+            class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
+            {
+                /**
+                 * @var \Magento\Cms\Model\ResourceModel\Block\Collection
+                 */
+                protected $collection;
+            
+                /**
+                 * @var DataPersistorInterface
+                 */
+                protected $dataPersistor;
+            
+                /**
+                 * @var array
+                 */
+                protected $loadedData;
+                private $fileInfo;
+                protected $_storeManager;   
+                /**
+                 * Constructor
+                 *
+                 * @param string $name
+                 * @param string $primaryFieldName
+                 * @param string $requestFieldName
+                 * @param CollectionFactory $blockCollectionFactory
+                 * @param DataPersistorInterface $dataPersistor
+                 * @param array $meta
+                 * @param array $data
+                 * @param PoolInterface|null $pool
+                 */
+                public function __construct(
+                    $name,
+                    $primaryFieldName,
+                    $requestFieldName,
+                    CollectionFactory $blockCollectionFactory,
+                    DataPersistorInterface $dataPersistor,
+                    StoreManagerInterface $storeManager,
+                    array $meta = [],
+                    array $data = [],
+                    PoolInterface $pool = null
+                ) {
+                    $this->collection = $blockCollectionFactory->create();
+                    $this->dataPersistor = $dataPersistor;
+                    $this->_storeManager = $storeManager;
+                    parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data, $pool);
+                }
+            
+                /**
+                 * Get data
+                 *
+                 * @return array
+                 */
+                public function getData()
+                {  
+                    if (isset($this->loadedData)) {
+                        return $this->loadedData;
+                    }
+                    $items = $this->collection->getItems();
+            
+                    /** @var \Magento\Cms\Model\Block $block */
+                   foreach ($items as $banner) {
+                        $banner = $this->convertValues($banner);
+            
+                        $this->loadedData[$banner->getId()] = $banner->getData();
+                    }
+            
+                    $data = $this->dataPersistor->get('portfolio');
+                    if (!empty($data)) {
+                        $block = $this->collection->getNewEmptyItem();
+                        $block->setData($data);
+                        $this->loadedData[$block->getId()] = $block->getData();
+                        $this->dataPersistor->clear('portfolio');
+                    }
+            
+                    return $this->loadedData;
+                }
+            }
+                display: inline-block;
+                margin-left: auto;
+                margin-right: auto;
+
+                >.link-action-btn {
+                    font-size: 15px;
+                    width: 211px;
+                    padding: 11px 22px;
+                    text-align: center;
+                    color: @color-white;
+                    border-color: @color-white;
+                    background-color: @color-gray-darken5;
+
+                    &:hover {
+                        background-color: @color-white;
+                        color: @color-gray-darken5;
+                        border-color: @color-gray-darken5;
+                    }
+                }
+            }
+        }
+
+
+
+    }
+
+    //
+    //First Titles
+    //
+    .titles-content {
+        margin-top: 16px;
+        position: relative;
+        width: 50%;
+    }
+
+    .content-container {
+        position: absolute;
+        width: fit-content;
+        transform: translateX(-52%) translateY(-56%);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        .content-title {
+            font-size: 42px;
+            margin-bottom: 18px;
+            text-transform: uppercase;
+            line-height: 42px;
+            color: @color-white;
+            font-weight: 700;
+            font-family: @font-lora-regular;
+            text-align: center;
+        }
+
+        .content-btn {
+            padding: 0 31%;
+
+            >.link-action-btn {
+                background-color: @color-gray-darken5;
+                padding: 12px 10px;
+                color: @color-white;
+                border-color: @color-white;
+
+                :hover {
+                    color: @color-gray-darken5;
+                    background-color: @color-white;
+                    transition: 0, 3s;
+                }
+            }
+        }
+    }
+
+    .first-titles {
+        display: flex;
+        justify-content: space-between;
+
+        img {
+            max-width: 100%;
+        }
+
+        &-2 {
+            text-align: right;
+
+            >.content-container {
+                transform: translateX(-49%) translateY(-56%);
+            }
+        }
+    }
+
+    //
+    //Reason to Buy
+    //
+
+    .reason-to-buy {
+        margin-top: 14px;
+
+        .slick-slide{
+            width: 33,33%;
+        }
+        ul {
+            background-color: @color-gray-darken5;
+            padding: 10px 19px;
+            width: 100%;
+            li {
+                width: 30%;
+                list-style: none;
+                font-size: 13px;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                line-height: 14px;
+                margin-bottom: 0;
+                font-weight: 500;
+                font-family: @font-roboto-regular;
+                text-align: center;
+
+                >a {
+                    color: @color-white;
+
+                    &::after {
+                        content: "\f105";
+                        margin-left: 10px;
+                        font-family: 'fontawesome-webfont';
+                    }
+                }
+            }
+        }
+    }
+
+    //
+    //Banner
+    //
+
+    .homepage-banner {
+        margin-top: -4px;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+
+        .banner-content {
+            width: 32.2%;
+            text-align: center;
+            background-color: @color-gray-darken0;
+            padding-bottom: 32px;
+
+            img {
+                width: 100%;
+            }
+
+            h2 {
+                margin-bottom: 9px;
+            }
+
+            .banner-info {
+                height: 32px;
+                font-size: 14px;
+                line-height: 20px;
+                margin-bottom: 10px;
+                color: @color-black_dark;
+                font-weight: 400;
+                letter-spacing: 0.005em;
+                font-family: @font-roboto-regular;
+                text-align: center;
+                padding: 0 7% 15px 7%;
+            }
+
+            >.link-action-btn {
+                display: inline-block;
+                width: 103px;
+            }
+        }
+
+    }
+
+    //
+    //Second Title
+    //
+
+    .second-titles {
+        display: flex;
+        justify-content: space-between;
+
+        img {
+            width: 100%;
+        }
+
+        &-1 {
+            width: 49.3%;
+            margin-top: 0;
+
+            .content-title {
+                top: 35.5%;
+            }
+
+            .content-btn {
+                padding: 0 20%;
+                top: 51%;
+            }
+        }
+
+        .video {
+            width: 49%;
+
+            video {
+                width: 100%;
+                height: 99%;
+            }
+        }
+    }
+
+    //
+    //Best Seller
+    //
+
+
+
+    //
+    //New Arrivals
+    //
+
+
+
+    //
+    //Shop our Instagram
+    //
+    .shop-our-instagram {
+        text-align: center;
+
+        &-header {
+            >h1 {
+                margin-bottom: 11px;
+            }
+        }
+
+        &-info {
+            margin-bottom: 21px;
+            font-size: 13px;
+            line-height: 20px;
+            color: @color-black_dark;
+            letter-spacing: 0.01em;
+            font-weight: 400;
+            font-family: @font-roboto-regular;
+        }
+
+        &-slick {
+            .slick-list {
+                z-index: 1;
+            }
+
+            .slick-arrow {
+                z-index: 2;
+                width: 42px;
+                height: 42px;
+                background-color: @color-white;
+                border-radius: 50%;
+                position: absolute;
+
+                &::before {
+                    color: @color-black;
+                    font-family: 'fontawesome-webfont';
+                }
+            }
+
+            .slick-prev {
+                left: 10px;
+
+                &::before {
+                    content: "\f104";
+                }
+            }
+
+            .slick-next {
+                right: 10px;
+
+                &::before {
+                    content: "\f105";
+                }
+            }
+
+            margin: 0 -9px;
+
+            .slick-slide {
+                text-align: center;
+
+                img {
+                    max-width: 93%;
+                }
+            }
+        }
+
+        >.link-action-btn {
+            display: inline-block;
+            width: 156px;
+            margin-top: 16px;
+            padding: 5px 10px;
+
+            &::after {
+                content: none;
+            }
+        }
+    }
+
+    //
+    //Our Blog
+    //
+    .our-blog {
+        &-header {
+            text-align: center;
+        }
+
+        &-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        &-content {
+            width: 32.2%;
+            margin-bottom: 23px;
+
+            img {
+                width: 100%;
+            }
+
+            &-header {
+                margin-top: 12px;
+                font-size: 18px;
+                line-height: 24px;
+                color: @color-gray-darken8;
+                font-weight: 400;
+                font-family: @font-lora-regular;
+            }
+
+            &-info {
+                width: 100%;
+                height: 92px;
+                margin-bottom: -12px;
+                font-size: 13px;
+                line-height: 20px;
+                color: @color-black_dark;
+                letter-spacing: 0.01em;
+                font-weight: 400;
+                font-family: @font-roboto-regular;
+            }
+
+            .link-blog {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    //
+    //Testimonials
+    //
+    .testimonials {
+        &-header {
+            text-align: center;
+        }
+
+        &-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        &-content {
+            width: 49%;
+            padding: 33px 0;
+            margin-bottom: 20px;
+            border: 1px solid @color-gray-light8;
+            letter-spacing: 0.007em;
+            font-size: 13px;
+            line-height: 20px;
+            color: @color-black_dark;
+            font-weight: 400;
+
+            p {
+                padding: 0 6% 0 6.5%;
+                letter-spacing: 0.007em;
+                height: 86px;
+                font-family: @font-roboto-regular;
+            }
+
+            .name-author {
+                padding: 0 6% 0 6.5%;
+                font-family: @font-roboto-bold;
+            }
+
+            .date {
+                padding: 0 6% 0 6.5%;
+            }
+        }
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum ='max') and (@break =@screen__xs) {}
+
+.media-width(@extremum, @break) when (@extremum ='max') and (@break =@screen__m) {
+    //
+    //Main Banner
+    //
+
+    .main-banner {
+        display: none;
+    }
+
+    .main-banner-mobile {
+        display: block;
+    }
+
+    .main-banner-mobile {
+
+        .slick-next,
+        .slick-prev {
+            display: none;
+        }
+
+        .slide-content {
+            .sld-title {
+                font-size: 60px;
+            }
+
+            .sld-content {
+                font-size: 20px;
+                padding: 0 10%;
+            }
+
+            .sld-btn {
+                >.link-action-btn {
+                    width: 200px;
+                    padding: 11px 10px;
+                }
+            }
+        }
+    }
+
+    //
+    //First Titles
+    //
+    .first-titles {
+        flex-wrap: wrap;
+
+        img {
+            width: 100%;
+        }
+
+        &-1 {
+            width: 100%;
+        }
+
+        &-2 {
+            width: 100%;
+        }
+    }
+
+
+    //
+    //Reason to Buy
+    //
+
+
+
+    //
+    //Banner
+    //
+
+    .homepage-banner {
+        flex-wrap: wrap;
+
+        .banner-content {
+            width: 100%;
+        }
+    }
+
+    //
+    //Second Title
+    //
+
+    .second-titles {
+        flex-wrap: wrap;
+
+        &-1 {
+            width: 100%;
+        }
+
+        .video {
+            width: 100%;
+        }
+    }
+
+    //
+    //Best Seller
+    //
+
+
+
+    //
+    //New Arrivals
+    //
+
+
+
+    //
+    //Shop our Instagram
+    //
+
+
+    //
+    //Our Blog
+    //
+
+
+    //
+    //Testimonials
+    //
+}
+.media-width(@extremum, @break) when (@extremum ='max') and (@break =@screen__l){
+ 
+}
+.media-width(@extremum, @break) when (@extremum ='min') and (@break =@screen__l){
+    .main-banner{
+        .slide-content{
+            .sld-title{
+                font-size: 200px;
+            }
+        }
+    }
+}
+.media-width(@extremum, @break) when (@extremum ='min') and (@break =@screen__m) {
+
+    //
+    //Main Banner
+    //
+    .main-banner {
+        display: block;
+    }
+    .main-banner{
+        .slide-content{
+            .sld-title{
+                font-size: 140px;
+            }
+        }
+    }
+    .main-banner-mobile {
+        display: none;
+    }
+
+}

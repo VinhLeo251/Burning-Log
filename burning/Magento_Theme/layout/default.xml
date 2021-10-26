@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="3columns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="default_head_blocks"/>
+    <body>
+     <referenceContainer name="header.panel" > 
+        <block class="Magento\Framework\View\Element\Template" name="header-top" before="-" template="Magento_Theme::header-top.phtml" />
+        <referenceBlock name="header.links">
+            <block name="register-link" remove="true"/>
+            <block name="header" remove="true"/>
+        </referenceBlock>
+     </referenceContainer>
+ 
+     <referenceContainer name="footer-container">
+        <block name="footer_links" remove="true"/>
+        <block name="copyright" remove="true"/>
+        <block class="Magento\Framework\View\Element\Template" name="footer-top" before="-" template="Magento_Theme::footer-top.phtml" />
+        <block class="Magento\Framework\View\Element\Template" name="footer-banner" after="footer-top"  template="Magento_Theme::footer-banner.phtml" />
+        <container name="footer-middle" htmlTag="div" htmlClass="footer-middle">
+            <block class="Magento\Framework\View\Element\Template" name="footer-middle-categories" before="-" template="Magento_Theme::footer-middle-categories.phtml"/>
+            <block class="Magento\Framework\View\Element\Template" name="footer-middle-2" template="Magento_Theme::footer-middle-2.phtml"/>
+            <block class="Magento\Framework\View\Element\Template" name="footer-middle-3" template="Magento_Theme::footer-middle-3.phtml"/>
+            <container name="footer-middle-4" htmlTag="div" htmlClass="footer-middle-4" after="footer-middle-3">
+                <block class="Magento\Newsletter\Block\Subscribe" name="form.subscribe" after="-" as="subscribe" template="subscribe.phtml" remove="true"/>
+                <block class="Magento\Framework\View\Element\Template" name="footer-social" after="-" template="Magento_Theme::footer-social.phtml"/>
+            </container>  
+        </container>
+        <block class="Magento\Framework\View\Element\Template" name="footer-bottom" after="-"  template="Magento_Theme::footer-bottom.phtml" />
+    </referenceContainer>
+    </body>
+</page>

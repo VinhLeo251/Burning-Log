@@ -1,0 +1,80 @@
+// /**
+//  * Copyright © Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+
+    //  Using buttons mixins
+    button,
+    a.action.primary {
+        .lib-css(border-radius, @button__border-radius);
+    }
+
+    button {
+        &:not(.primary) {
+            .lib-css(box-shadow, @button__shadow);
+
+            &:active {
+                .lib-css(box-shadow, @button__shadow-active);
+            }
+        }
+    }
+
+    body {
+        &:not(._keyfocus) {
+            button {
+                &:focus {
+                    box-shadow: none;
+                }
+            }
+        }
+    }
+
+    a.action.primary {
+        .lib-link-as-button();
+    }
+
+    .action.primary {
+        .lib-button-primary();
+    }
+    .action{
+        height: 40px;
+        text-transform: uppercase;
+    }
+    .action.primary.tocart{
+        background-color: @color-middle-green1;
+        width: 180px;
+        color: @color-white;
+        border: none;
+        &:hover{
+        background-color: @color-middle-green2;
+        }
+    }
+    .action.minus{
+        margin-left: -5px;
+        margin-top: -2px;
+    }
+    .action.plus{
+        margin-right: -5px;
+        margin-top: -2px;
+    }
+    .action.primary.toview{
+        .lib-css(height,50px);
+        .lib-css(width,250px);
+        .lib-css(color,@color-white);
+        .lib-css(background-color,@color-grey1);
+        .lib-css(border, 2px solid @color-white);
+        &:hover{
+            .lib-css(background-color,@color-gray-darken7);
+        }
+    }
+    .example-dropdown-2{
+        .lib-dropdown();
+    }
+}
+
